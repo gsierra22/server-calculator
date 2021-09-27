@@ -8,8 +8,13 @@ app.use (bodyParser.urlencoded({extended: true}))
 
 //globals
 const port= 5000;
+let inventory = [];
 //spin up server
 app.listen (port, ()=>{
     console.log('sever up on:', port)
 })
 //routes
+app.get('/inventory', (req, res)=>{
+    console.log('/inventory GET hit');
+    res.send(inventory)
+})
