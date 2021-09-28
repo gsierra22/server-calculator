@@ -4,6 +4,7 @@ function onReady(){
     getEquation();
     $('.symbol').on('click',setSymbol)
     $('#equaler').on('click',math)
+    $('#clearer').on('click',clearButton)
     
 }
 
@@ -25,7 +26,7 @@ function getEquation(){
         equationPost.empty();
         for(let i=0; i<response.length; i++) {
             equationPost.append(
-                `<li> ${response[i].num1} ${response[i].formula} ${response[i].num2} = ${response[i].result}</li>`
+                `<li> ${response[i].num1} ${response[i].formula} ${response[i].num2} = ${response[i].answer}</li>`
             );
         };
     }).catch( function (err) {
@@ -50,4 +51,8 @@ function math(){
      {alert('server down');
     })
  }
-
+function clearButton(){
+    $('#numberBox').val('');
+    symbol='';
+    $('#secondBox').val('')
+}

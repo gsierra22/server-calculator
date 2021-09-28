@@ -8,15 +8,7 @@ app.use (bodyParser.urlencoded({extended: true}))
 
 //globals
 const port= 5000;
-let inventory = [
-
-    {
-        num1: 5,
-        formula: '+',
-        num2: 4,
-        result: 9
-    }
-];
+let inventory = [];
 //spin up server
 app.listen (port, ()=>{
     console.log('sever up on:', port)
@@ -30,9 +22,20 @@ app.get('/math', (req, res)=>{
 app.post('/final',(req,res)=>{
     console.log(req.body);
     let el=req.body;
-    let answer={result: el.num1-el.num2};
+    let answer=0
+    if (el.formula==='+'){
+        el.answer= (parseInt(el.num1)+(parseInt(el.num2)))
+    }
+    else if (el.formula==='-'){
+        el.answer= (parseInt(el.num1)-(parseInt(el.num2)))
+    }else if (el.formula==='*'){
+        el.answer= (parseInt(el.num1)*(parseInt(el.num2)))
+    } else if (el.formula==='/'){
+        el.answer= (parseInt(el.num1)/(parseInt(el.num2)))}
+
+   // let answer={result: el.num1-el.num2};
     
     console.log(answer);
-    inventory.push(answer)
+    inventory.push(el)
     res.sendStatus(200);
 })
