@@ -45,18 +45,23 @@ function math(){
         num2: $('#secondBox').val(),
         
     }
-    
-    $.ajax({
-        method:'POST',
-        url:'/final',
-        data: mathToSend
-     }).then(function(response){
-         getEquation();
-         clearButton()
+    if (mathToSend.num1===''|| mathToSend.formula===''||mathToSend.num2==='')
+    {
+        alert('Please enter all fields')
+    }
+    else {
+        $.ajax({
+            method:'POST',
+            url:'/final',
+            data: mathToSend
+        }).then(function(response){
+            getEquation();
+            clearButton()
 
-     }).catch(function(err)
-     {alert('server down');
-    })
+        }).catch(function(err)
+        {alert('server down');
+        })
+    }   
  }
  function finalAnswer(){
 

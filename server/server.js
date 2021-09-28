@@ -33,7 +33,6 @@ app.post('/final',(req,res)=>{
     } else if (el.formula==='/'){
         el.answer= (parseInt(el.num1)/(parseInt(el.num2)))}
 
-   // let answer={result: el.num1-el.num2};
     
     console.log(answer);
     inventory.push(el)
