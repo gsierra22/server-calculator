@@ -29,6 +29,11 @@ function getEquation(){
                 `<li> ${response[i].num1} ${response[i].formula} ${response[i].num2} = ${response[i].answer}</li>`
             );
         };
+        let el2= $('#sumDiv')
+        el2.empty()
+        el2.append(
+            `<h2>${response[response.length-1].answer}</h2>`
+        )
     }).catch( function (err) {
         console.log('error:', err);
     })
@@ -40,16 +45,21 @@ function math(){
         num2: $('#secondBox').val(),
         
     }
+    
     $.ajax({
         method:'POST',
         url:'/final',
         data: mathToSend
      }).then(function(response){
          getEquation();
+         clearButton()
 
      }).catch(function(err)
      {alert('server down');
     })
+ }
+ function finalAnswer(){
+
  }
 function clearButton(){
     $('#numberBox').val('');
