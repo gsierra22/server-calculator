@@ -1,18 +1,53 @@
 $ (document).ready(onReady);
 
 function onReady(){
-    getInventory();
+    getEquation();
+    $('.symbol').on('click',setSymbol)
+    $('#equaler').on('click',math)
+    
 }
 
-function getInventory (){
-    console.log(' in getInventory')
-    $.ajax({
-        method: 'GET',
-        url:'/inventory'
-    }).then( function(response){
-        console.log('back from GET:', response);
-    }).catch(function(err){
-        alert('server is down');
-        console.log(err);
+let collection=[]
+
+let symbol=''
+
+function setSymbol(){
+   symbol= $(this).html();
+   console.log(symbol);
+}
+function getEquation(){
+    $.ajax ( { 
+        method: 'GET', 
+        url: '/math' 
+    }).then(function(response) {
+        let equationPost = $('#inputDiv');
+        console.log(response)
+        equationPost.empty();
+        for(let i=0; i<response.length; i++) {
+            equationPost.append(
+                `<li> ${response[i].num1} ${response[i].formula} ${response[i].num2} = ${response[i].result}</li>`
+            );
+        };
+    }).catch( function (err) {
+        console.log('error:', err);
     })
 }
+function math(){
+    let mathToSend= {
+        num1: $('#numberBox').val(),
+        formula: symbol,
+        num2: $('#secondBox').val(),
+        
+    }
+    $.ajax({
+        method:'POST',
+        url:'/final',
+        data: mathToSend
+     }).then(function(response){
+         getEquation();
+
+     }).catch(function(err)
+     {alert('server down');
+    })
+ }
+
